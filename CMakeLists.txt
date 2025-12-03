@@ -202,6 +202,7 @@ set(X16_SOURCES
     src/ymglue.cpp
     src/midi.c
     src/extern/ymfm/src/ymfm_opm.cpp
+    src/extern/chlorsnd/src/chlorsnd.c
 )
 
 if(WIN32)
@@ -222,6 +223,7 @@ target_include_directories(x16emu PRIVATE
     src
     src/extern/include
     src/extern/ymfm/src
+    src/extern/chlorsnd/src
     ${GIT_REV_HEADER_DIR}
 )
 
