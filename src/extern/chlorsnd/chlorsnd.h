@@ -7,6 +7,8 @@
 
 #include <stdint.h>
 
+#define CHLORSND_SAMPLE_MEMORY 32768
+
 void chlorsnd_init();
 void chlorsnd_poke(uint16_t reg, uint8_t value);
 void chlorsnd_render(int16_t *stereo_buffer, uint32_t samples);
