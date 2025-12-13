@@ -314,7 +314,7 @@ uint8_t chlorsnd_peek(uint16_t reg) {
 
 void chlorsnd_destroy() {}
 
-int16_t saturate_into_int16(int32_t what) {
+int32_t saturate_into_int16(int32_t what) {
   if(what > 32767) {
     return 32767;
   }
@@ -334,34 +334,44 @@ int16_t chlorsnd_render_biquad(chlorsnd_biquad_stage *s, int16_t sample,
   if (is_right) {
     a -= s->pri_delays_R[1] * (s->pri_coefficients[1] << 8);
     a >>= 16;
+    a = saturate_into_int16(a);
     a -= s->pri_delays_R[0] * (s->pri_coefficients[0] << 8);
     a >>= 16;
+    a = saturate_into_int16(a);
     a += sample;
-    a >>= 16;
+    a = saturate_into_int16(a);
 
     b += s->pri_delays_R[1] * (s->pri_coefficients[4] << 8);
     b >>= 16;
+    b = saturate_into_int16(b);
     b += s->pri_delays_R[0] * (s->pri_coefficients[3] << 8);
     b >>= 16;
+    b = saturate_into_int16(b);
     b += a * (s->pri_coefficients[2] << 8);
     b >>= 16;
+    b = saturate_into_int16(b);
 
     s->pri_delays_R[1] = s->pri_delays_R[0];
     s->pri_delays_R[0] = a;
   } else {
     a -= s->pri_delays_L[1] * (s->pri_coefficients[1] << 8);
     a >>= 16;
+    a = saturate_into_int16(a);
     a -= s->pri_delays_L[0] * (s->pri_coefficients[0] << 8);
     a >>= 16;
+    a = saturate_into_int16(a);
     a += sample;
-    a >>= 16;
+    a = saturate_into_int16(a);
 
     b += s->pri_delays_L[1] * (s->pri_coefficients[4] << 8);
     b >>= 16;
+    b = saturate_into_int16(b);
     b += s->pri_delays_L[0] * (s->pri_coefficients[3] << 8);
     b >>= 16;
+    b = saturate_into_int16(b);
     b += a * (s->pri_coefficients[2] << 8);
     b >>= 16;
+    b = saturate_into_int16(b);
 
     s->pri_delays_L[1] = s->pri_delays_L[0];
     s->pri_delays_L[0] = a;
